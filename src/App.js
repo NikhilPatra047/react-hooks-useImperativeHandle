@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef, useState } from "react";
+import CustomInput from "./components/CustomInput";
 
-function App() {
+export default function App() {
+  const [open, setOpen] = useState(false);
+  const inputRef = useRef();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <button onClick={() => setOpen(true)}>Open Modal</button>
+      <button onClick={() => inputRef.current.alertHi()}>CLick ME!</button>
+      {
+        open ?
+          <button onClick={() => inputRef.current.focusRefBtn.focus()}>Focus input</button>
+          :
+          null
+      }
+      <CustomInput
+        ref={inputRef}
+        open={open}
+        onClose={() => setOpen(false)}
+      />
+    </>
   );
 }
-
-export default App;
